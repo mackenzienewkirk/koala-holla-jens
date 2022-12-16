@@ -34,7 +34,7 @@ koalaRouter.post('/', (req,res) => {
     INSERT INTO "koalas" ("name", "gender", "age", "ready_to_transfer", "notes")
         VALUES ($1,$2,$3,$4,$5);
     `;
-    let sqlValues = [newKoala.name, newKoala.gender, newKoala.age, newKoala.ready_to_transfer, newKoala.notes];
+    let sqlValues = [newKoala.name, newKoala.gender, newKoala.age, newKoala.readyToTransfer, newKoala.notes];
     pool.query(sqlQuery, sqlValues)
     .then((dbRes) => {
         res.sendStatus(201);
