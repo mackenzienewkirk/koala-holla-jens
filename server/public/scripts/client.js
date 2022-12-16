@@ -17,13 +17,19 @@ function setupClickListeners() {
     // get user input and put in an object
     // NOT WORKING YET :(
     // using a test object
-    let koalaToSend = {
-      name: 'testName',
-      age: 'testName',
-      gender: 'testName',
-      readyForTransfer: 'testName',
-      notes: 'testName',
-    };
+  let newName = $('#newNameIn').val();
+  let newAge = $('#newAgeIn').val();
+  let newGender = $('#newGenderIn').val();
+  let newReadyForTransfer = $('#newReadyForTransferIn').val();
+  let newNotes = $('#newNotesIn').val();
+
+  let koalaToSend = {
+    name: newName,
+    age: newAge,
+    gender: newGender,
+    readyForTransfer: newReadyForTransfer,
+    notes: newNotes
+  }
     // call saveKoala with the new obejct
     saveKoala( koalaToSend );
   }); 
@@ -71,9 +77,19 @@ function getKoalas(){
 
 
 function saveKoala( newKoala ){
-  console.log( 'in saveKoala', newKoala );
+console.log( 'in saveKoala', newKoala );
   // ajax call to server to get koalas
-
+  $.ajax({
+    type: 'POST',
+    url: '/koalas',
+    data: newKoala
+  }).then(function(response) {
+    console.log('Response from server.', response);
+    getKoalas();
+  }).catch(function(error) {
+    console.log('Error in POST', error)
+    alert('Unable to add book at this time.');
+  })
 
 }
 
